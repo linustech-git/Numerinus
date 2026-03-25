@@ -4,6 +4,24 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- Package Identity -->
+    <PackageId>Numerinus.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Sunil Chaware</Authors>
+
+    <!-- License -->
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <!-- Package Metadata -->
+    <Title>Numerinus.Core</Title>
+    <Description>The foundational engine for the Numerinus mathematical suite. Provides IArithmetic, ComplexNumber, Scalar, Accuracy, and high-precision constants.</Description>
+    <PackageTags>math;numerics;complex-numbers;scalar;arithmetic;statistics;calculus</PackageTags>
+    <RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+
+    <!-- Pack Settings -->
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
 </Project>
