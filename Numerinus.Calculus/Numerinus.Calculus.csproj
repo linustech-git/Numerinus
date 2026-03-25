@@ -1,28 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<ItemGroup>
-		<ProjectReference Include="..\Numerinus.Core\Numerinus.Core.csproj" />
-	</ItemGroup>
-
 	<PropertyGroup>
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
 		<!-- Package Identity -->
-		<PackageId>Numerinus.Geometry</PackageId>
+		<PackageId>Numerinus.Calculus</PackageId>
 		<Version>1.0.0</Version>
 		<Authors>Sunil Chaware</Authors>
 		<Copyright>Copyright (c) 2026 Sunil Chaware. All rights reserved.</Copyright>
-
 
 		<!-- License -->
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
 		<!-- Package Metadata -->
-		<Title>Numerinus.Geometry</Title>
-		<Description>Geometry module for the Numerinus mathematical suite. Provides geometric types and transformations built on Numerinus.Core.</Description>
-		<PackageTags>math;geometry;transformations;numerics</PackageTags>
+		<Title>Numerinus.Calculus</Title>
+		<Description>Calculus module for the Numerinus mathematical suite. Provides differentiation, integration, and other calculus operations built on Numerinus.Core.</Description>
+		<PackageTags>math;numerics;calculus;differentiation;integration</PackageTags>
 		<RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 
