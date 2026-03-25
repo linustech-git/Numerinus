@@ -20,9 +20,15 @@
 		<PackageTags>math;numerics;complex-numbers;scalar;arithmetic;statistics;calculus</PackageTags>
 		<RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+
 
 		<!-- Pack Settings -->
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>
