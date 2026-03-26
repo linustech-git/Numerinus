@@ -2,10 +2,11 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Numerinus.Core\Numerinus.Core.csproj" />
+		<ProjectReference Include="..\Numerinus.Algebra\Numerinus.Algebra.csproj" />
 	</ItemGroup>
 
 	<PropertyGroup>
-  <TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 
@@ -22,12 +23,19 @@
 		<!-- Package Metadata -->
 		<Title>Numerinus.Geometry</Title>
 		<Description>Geometry module for the Numerinus mathematical suite. Provides geometric types and transformations built on Numerinus.Core.</Description>
-		<PackageTags>math;geometry;transformations;numerics</PackageTags>
+		<PackageTags>math;geometry;transformations;numerics;vectors;points;shapes;triangle;circle;transform;matrix</PackageTags>
 		<RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<!-- Pack Settings -->
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
 	</PropertyGroup>
+
+
+
+	<ItemGroup>
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 
 </Project>

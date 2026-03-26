@@ -1,0 +1,397 @@
+# Numerinus.Geometry
+
+Geometry module for the Numerinus mathematical suite. Built on Numerinus.Core and Numerinus.Algebra, this package provides immutable 2D and 3D geometric types, shape calculations, and affine transformations.
+
+[![NuGet](https://img.shields.io/nuget/v/Numerinus.Geometry)](https://www.nuget.org/packages/Numerinus.Geometry)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## Installation
+
+dotnet add package Numerinus.Geometry
+
+---
+
+## Project Structure
+
+Numerinus.Geometry/
+    Vectors/
+        Vector2.cs      2D vector with X, Y components
+        Vector3.cs      3D vector with X, Y, Z components
+    Points/
+        Point2D.cs      2D point with X, Y coordinates
+        Point3D.cs      3D point with X, Y, Z coordinates
+    Shapes/
+        Circle.cs       Circle with area, circumference, arc calculations
+        Triangle.cs     Triangle with full geometric analysis
+    Transforms/
+        Transform2D.cs  2D affine transformation using 3x3 homogeneous matrix
+
+---
+
+## Dependencies
+
+This module depends on:
+    Numerinus.Core   for Scalar, IArithmetic, NumerinusConstants
+    Numerinus.Algebra   for Matrix(Scalar) used in Transform2D
+
+---
+
+## Quick Start
+
+### Vector2
+
+    using Numerinus.Geometry.Vectors;
+
+    var v1 = new Vector2(3, 4);
+    var v2 = new Vector2(1, 2);
+
+    var sum     = v1 + v2;
+    var scaled  = v1 * 2.0;
+    var length  = v1.Magnitude;
+    var unit    = v1.Normalise();
+    var dot     = Vector2.Dot(v1, v2);
+    var angle   = Vector2.AngleBetween(Vector2.UnitX, Vector2.UnitY);
+    var dist    = Vector2.Distance(v1, v2);
+
+### Vector3
+
+    using Numerinus.Geometry.Vectors;
+
+    var a = new Vector3(1, 0, 0);
+    var b = new Vector3(0, 1, 0);
+
+    var cross   = Vector3.Cross(a, b);
+    var dot     = Vector3.Dot(a, b);
+    var unit    = a.Normalise();
+
+### Point2D
+
+    using Numerinus.Geometry.Points;
+
+    var p1 = new Point2D(0, 0);
+    var p2 = new Point2D(3, 4);
+
+    var dist    = p1.DistanceTo(p2);
+    var mid     = p1.MidpointTo(p2);
+    var distSq  = Point2D.DistanceSquared(p1, p2);
+    var moved   = p1 + new Vector2(1, 1);
+    var dir     = p2 - p1;
+
+### Point3D
+
+    using Numerinus.Geometry.Points;
+
+    var p1 = new Point3D(0, 0, 0);
+    var p2 = new Point3D(1, 2, 3);
+
+    var dist = p1.DistanceTo(p2);
+    var mid  = p1.MidpointTo(p2);
+
+### Circle
+
+    using Numerinus.Geometry.Shapes;
+
+    var c = new Circle(5);
+
+    var area            = c.Area;
+    var circumference   = c.Circumference;
+    var diameter        = c.Diameter;
+    var arcLen          = c.ArcLengthDegrees(90);
+    var arcArea         = c.ArcAreaDegrees(90);
+    var arcBoundary     = c.ArcPlusRadiusLengthDegrees(90);
+    var angle           = c.AngleDegreesFromArcLength(arcLen);
+
+    var fromCirc    = Circle.FromCircumference(31.415);
+    var fromArea    = Circle.FromArea(78.539);
+    var fromDiam    = Circle.FromDiameter(10);
+
+### Triangle — from sides only (SSS)
+
+    using Numerinus.Geometry.Shapes;
+
+    var t = new Triangle(3, 4, 5);
+
+    var area        = t.Area;
+    var perimeter   = t.Perimeter;
+    var angleA      = t.AngleADegrees;
+    var angleB      = t.AngleBDegrees;
+    var angleC      = t.AngleCDegrees;
+    var heightA     = t.HeightA;
+    var inradius    = t.IncircleRadius;
+    var circumR     = t.CircumcircleRadius;
+    var incircle    = t.Incircle;
+    var circumcircle = t.Circumcircle;
+
+    var isRight     = t.IsRightAngle;
+    var isAcute     = t.IsAcute;
+    var isObtuse    = t.IsObtuse;
+    var isEquil     = t.IsEquilateral;
+
+### Triangle — from vertices (centroid, centres available)
+
+    using Numerinus.Geometry.Points;
+    using Numerinus.Geometry.Shapes;
+
+    var t = new Triangle(
+        new Point2D(0, 0),
+        new Point2D(4, 0),
+        new Point2D(0, 3));
+
+    var centroid            = t.Centroid;
+    var incircleCentre      = t.IncircleCentre;
+    var circumcircleCentre  = t.CircumcircleCentre;
+
+### Triangle — factory constructors
+
+    var sas  = Triangle.FromTwoSidesAndAngleDegrees(4, 5, 60);
+    var aas  = Triangle.FromOneSideAndTwoAnglesDegrees(5, 60, 80);
+    var eq   = Triangle.Equilateral(6);
+    var iso  = Triangle.Isoceles(4, 7);
+    var right = Triangle.RightAngle(3, 4);
+
+### Transform2D
+
+    using Numerinus.Geometry.Transforms;
+    using Numerinus.Geometry.Points;
+
+    var point = new Point2D(1, 0);
+
+    var moved   = Transform2D.Translation(5, 3).Apply(point);
+    var rotated = Transform2D.RotationDegrees(90).Apply(point);
+    var scaled  = Transform2D.Scale(2).Apply(point);
+
+    var combined = Transform2D.Translation(5, 0)
+                 * Transform2D.RotationDegrees(45)
+                 * Transform2D.Scale(2);
+
+    var result = combined.Apply(point);
+
+---
+
+## API Reference
+
+### Vector2 — Numerinus.Geometry.Vectors
+
+Immutable readonly struct. Represents a 2D direction or displacement.
+
+Properties
+    X, Y            Scalar components
+    Magnitude       Length: sqrt(x2 + y2)
+    MagnitudeSquared   Length squared, no sqrt cost
+    Zero            (0, 0)
+    UnitX           (1, 0)
+    UnitY           (0, 1)
+
+Methods
+    Normalise()                     Returns unit vector in same direction
+    Dot(a, b)                       Scalar dot product: Ax*Bx + Ay*By
+    AngleBetween(a, b)              Angle in radians between two vectors
+    Distance(a, b)                  Euclidean distance between tip points
+
+Operators
+    v1 + v2, v1 - v2                Component-wise add / subtract
+    v * scalar, scalar * v          Scale vector
+    v / scalar                      Divide vector
+    -v                              Negate
+
+---
+
+### Vector3 — Numerinus.Geometry.Vectors
+
+Immutable readonly struct. Represents a 3D direction or displacement.
+
+Properties
+    X, Y, Z         Scalar components
+    Magnitude       Length: sqrt(x2 + y2 + z2)
+    MagnitudeSquared
+    Zero, UnitX, UnitY, UnitZ
+
+Methods
+    Normalise()
+    Dot(a, b)                       Ax*Bx + Ay*By + Az*Bz
+    Cross(a, b)                     Perpendicular vector (3D only)
+    AngleBetween(a, b)
+    Distance(a, b)
+
+Operators
+    v1 + v2, v1 - v2, v * s, v / s, -v
+
+---
+
+### Point2D — Numerinus.Geometry.Points
+
+Immutable readonly struct. Represents a fixed position in 2D space.
+
+Properties
+    X, Y            Scalar coordinates
+    Origin          (0, 0)
+
+Methods
+    DistanceTo(other)               Euclidean distance
+    Distance(a, b)                  Static version
+    DistanceSquared(a, b)           Squared distance, no sqrt
+    MidpointTo(other)               Midpoint between two points
+    Midpoint(a, b)                  Static version
+    ToVector2()                     Converts to position vector
+    FromVector2(v)                  Creates point from vector
+
+Operators
+    point + vector                  Translate point
+    point - vector                  Translate in reverse
+    point - point                   Returns Vector2 direction
+
+---
+
+### Point3D — Numerinus.Geometry.Points
+
+Immutable readonly struct. Represents a fixed position in 3D space.
+
+Properties
+    X, Y, Z
+    Origin          (0, 0, 0)
+
+Methods
+    DistanceTo(other)
+    Distance(a, b)
+    DistanceSquared(a, b)
+    MidpointTo(other)
+    Midpoint(a, b)
+    ToVector3()
+    FromVector3(v)
+
+Operators
+    point + vector, point - vector, point - point (returns Vector3)
+
+---
+
+### Circle — Numerinus.Geometry.Shapes
+
+Immutable class. Defined by radius. All arc methods accept radians or degrees.
+
+Construction
+    new Circle(radius)
+    Circle.FromDiameter(d)          r = d / 2
+    Circle.FromCircumference(c)     r = C / (2 * Pi)
+    Circle.FromArea(a)              r = sqrt(A / Pi)
+
+Properties
+    Radius
+    Diameter                        2r
+    Circumference                   2 * Pi * r
+    Area                            Pi * r2
+
+Arc Methods (radians)
+    ArcLength(theta)                r * theta
+    ArcArea(theta)                  0.5 * r2 * theta
+    ArcPlusRadiusLength(theta)      Arc + 2r
+
+Arc Methods (degrees)
+    ArcLengthDegrees(theta)
+    ArcAreaDegrees(theta)
+    ArcPlusRadiusLengthDegrees(theta)
+
+Reverse
+    AngleFromArcLength(arcLen)      theta = arcLen / r
+    AngleDegreesFromArcLength(arcLen)
+
+---
+
+### Triangle — Numerinus.Geometry.Shapes
+
+Immutable class. Two construction modes: sides only, or vertex positions.
+
+Construction — sides
+    new Triangle(a, b, c)           Three side lengths (SSS)
+    Triangle.FromTwoSidesAndAngle(a, b, angleRad)        SAS
+    Triangle.FromTwoSidesAndAngleDegrees(a, b, angleDeg)
+    Triangle.FromOneSideAndTwoAngles(a, angleA, angleB)  AAS
+    Triangle.FromOneSideAndTwoAnglesDegrees(a, aA, aB)
+    Triangle.Equilateral(side)
+    Triangle.Isoceles(base, leg)
+    Triangle.RightAngle(legA, legB)
+
+Construction — vertices
+    new Triangle(Point2D a, Point2D b, Point2D c)
+
+Side-based properties (always available)
+    SideA, SideB, SideC
+    Perimeter, SemiPerimeter
+    Area                            Heron's formula
+    AngleADegrees/Radians
+    AngleBDegrees/Radians
+    AngleCDegrees/Radians
+    HeightA, HeightB, HeightC
+    Inradius, Circumradius
+    IncircleRadius, CircumcircleRadius
+    Incircle                        Returns Circle
+    Circumcircle                    Returns Circle
+
+Vertex-based properties (requires Point2D constructor)
+    A, B, C                         Vertex positions
+    HasVertices                     True if constructed from Point2D
+    Centroid                        Intersection of medians
+    IncircleCentre                  Weighted vertex average by opposite side
+    CircumcircleCentre              Perpendicular bisector intersection
+
+Classification
+    IsEquilateral, IsIsoceles, IsScalene
+    IsRightAngle, IsAcute, IsObtuse
+
+---
+
+### Transform2D — Numerinus.Geometry.Transforms
+
+Immutable class. Wraps a 3x3 homogeneous Matrix(Scalar) for 2D affine transformations.
+Uses homogeneous coordinates [x, y, 1] so translation, rotation and scaling are
+all expressed as matrix multiplication.
+
+Construction
+    Transform2D.Identity
+    Transform2D.Translation(tx, ty)
+    Transform2D.Rotation(angleRadians)
+    Transform2D.RotationDegrees(angleDegrees)
+    Transform2D.Scale(factor)
+    Transform2D.Scale(sx, sy)
+
+Composition
+    t1 * t2        Applies t2 first then t1 (standard matrix multiplication order)
+
+Apply
+    Apply(Point2D)     Translation + rotation + scale affect position
+    Apply(Vector2)     Only rotation + scale applied, translation ignored
+
+---
+
+## Key Design Notes
+
+All types are immutable. Every operation returns a new instance.
+
+Vector vs Point distinction. Use Vector2 or Vector3 for directions and
+displacements. Use Point2D or Point3D for fixed positions in space. Applying
+Transform2D.Translation to a vector has no effect, which is mathematically correct.
+
+Transform composition order. When combining transforms with *, the rightmost
+is applied first. To scale then rotate then translate, write:
+    Transform2D.Translation(...) * Transform2D.Rotation(...) * Transform2D.Scale(...)
+
+Triangle vertex requirement. Centroid, IncircleCentre and CircumcircleCentre
+require the triangle to be constructed from Point2D vertices. Accessing them
+on a sides-only triangle throws InvalidOperationException. IncircleRadius and
+CircumcircleRadius are always available since they only need side lengths.
+
+---
+
+## Related Modules
+
+Numerinus.Core       IArithmetic(T), Scalar, ComplexNumber, Accuracy, constants
+Numerinus.Algebra    Matrix(T), linear algebra
+Numerinus.Statistics Statistical functions and distributions
+
+---
+
+## License
+
+Copyright (c) 2026 Sunil Chaware. Licensed under the MIT License.
+https://opensource.org/licenses/MIT
