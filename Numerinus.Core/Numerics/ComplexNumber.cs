@@ -1,8 +1,9 @@
-﻿using Numerinus.Core.Interfaces;
+﻿using System;
+using Numerinus.Core.Interfaces;
 
 namespace Numerinus.Core.Numerics;
 
-public class ComplexNumber : IArithmetic<ComplexNumber>
+public class ComplexNumber : IArithmetic<ComplexNumber>, IEquatable<ComplexNumber>
 {
     public double Real { get; }
     public double Imaginary { get; }
@@ -28,4 +29,59 @@ public class ComplexNumber : IArithmetic<ComplexNumber>
     public bool IsZero(double epsilon = 1e-15) => Math.Abs(Real) < epsilon && Math.Abs(Imaginary) < epsilon;
 
     public override string ToString() => $"{Real} + {Imaginary}i";
+
+    // Operator overloads
+    public static ComplexNumber operator +(ComplexNumber l, ComplexNumber r)
+    {
+        if (l is null) throw new ArgumentNullException(nameof(l));
+        if (r is null) throw new ArgumentNullException(nameof(r));
+        return Add(l, r);
+    }
+
+    public static ComplexNumber operator -(ComplexNumber l, ComplexNumber r)
+    {
+        if (l is null) throw new ArgumentNullException(nameof(l));
+        if (r is null) throw new ArgumentNullException(nameof(r));
+        return Subtract(l, r);
+    }
+
+    public static ComplexNumber operator *(ComplexNumber l, ComplexNumber r)
+    {
+        if (l is null) throw new ArgumentNullException(nameof(l));
+        if (r is null) throw new ArgumentNullException(nameof(r));
+        return Multiply(l, r);
+    }
+
+    public static ComplexNumber operator /(ComplexNumber l, ComplexNumber r)
+    {
+        if (l is null) throw new ArgumentNullException(nameof(l));
+        if (r is null) throw new ArgumentNullException(nameof(r));
+        return Divide(l, r);
+    }
+
+    public static ComplexNumber operator +(ComplexNumber v)
+        => v is null ? throw new ArgumentNullException(nameof(v)) : new ComplexNumber(v.Real, v.Imaginary);
+
+    public static ComplexNumber operator -(ComplexNumber v)
+        => v is null ? throw new ArgumentNullException(nameof(v)) : new ComplexNumber(-v.Real, -v.Imaginary);
+
+    // Equality
+    public static bool operator ==(ComplexNumber? l, ComplexNumber? r)
+    {
+        if (ReferenceEquals(l, r)) return true;
+        if (l is null || r is null) return false;
+        return l.Real == r.Real && l.Imaginary == r.Imaginary;
+    }
+
+    public static bool operator !=(ComplexNumber? l, ComplexNumber? r) => !(l == r);
+
+    public bool Equals(ComplexNumber? other)
+    {
+        if (other is null) return false;
+        return Real == other.Real && Imaginary == other.Imaginary;
+    }
+
+    public override bool Equals(object? obj) => obj is ComplexNumber c && Equals(c);
+
+    public override int GetHashCode() => HashCode.Combine(Real, Imaginary);
 }

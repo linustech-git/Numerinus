@@ -1,8 +1,9 @@
-﻿using Numerinus.Core.Interfaces;
+﻿using System;
+using Numerinus.Core.Interfaces;
 
 namespace Numerinus.Core.Numerics;
 
-public readonly struct Scalar : IArithmetic<Scalar>
+public readonly struct Scalar : IArithmetic<Scalar>, IEquatable<Scalar>
 {
     public double Value { get; }
     public Scalar(double value) => Value = value;
@@ -14,7 +15,7 @@ public readonly struct Scalar : IArithmetic<Scalar>
     public static Scalar Divide(Scalar l, Scalar r) => new(l.Value / r.Value);
 
     public static Scalar Zero => new(0);
-    public static Scalar One => new(1);
+    public static Scalar One => new(1);     
 
     public bool IsZero(double epsilon = 1e-15) => Math.Abs(Value) < epsilon;
 
@@ -23,4 +24,21 @@ public readonly struct Scalar : IArithmetic<Scalar>
     public static implicit operator double(Scalar s) => s.Value;
 
     public override string ToString() => Value.ToString();
+
+    // Operator overloads
+    public static Scalar operator +(Scalar l, Scalar r) => Add(l, r);
+    public static Scalar operator -(Scalar l, Scalar r) => Subtract(l, r);
+    public static Scalar operator *(Scalar l, Scalar r) => Multiply(l, r);
+    public static Scalar operator /(Scalar l, Scalar r) => Divide(l, r);
+
+    public static Scalar operator +(Scalar v) => v;
+    public static Scalar operator -(Scalar v) => new(-v.Value);
+
+    // Equality
+    public static bool operator ==(Scalar l, Scalar r) => l.Value == r.Value;
+    public static bool operator !=(Scalar l, Scalar r) => !(l == r);
+
+    public bool Equals(Scalar other) => Value == other.Value;
+    public override bool Equals(object? obj) => obj is Scalar s && Equals(s);
+    public override int GetHashCode() => HashCode.Combine(Value);
 }
