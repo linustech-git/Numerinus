@@ -142,6 +142,20 @@ static T Sum<T>(IEnumerable<T> items) where T : IArithmetic<T> { T result = T.Ze
 
 ---
 
+## Support & Maintenance
+Numerinus is an actively maintained suite of .NET libraries. To ensure that updates, bug fixes, and new performance optimizations continue to flow, consider supporting the project:
+
+[Sponsor on GitHub](https://github.com/sponsors/linustech-git): Your support helps me dedicate more time to research, benchmarking, and shipping regular updates to the Numerinus ecosystem.
+
+Feature Requests: Sponsors get priority visibility when suggesting new mathematical utilities or architectural improvements.
+
+Keep it Alive: By sponsoring, you are investing in the long-term stability of these tools for the entire .NET community.
+
+Stay Connected: For updates on the roadmap or to discuss the project, connect with me on [LinkedIn](https://www.linkedin.com/in/sunil-chaware-9035a646/).
+
+---
+
 ## License
 
-Copyright (c) 2026 Sunil Chaware. Licensed under the [MIT License](https://opensource.org/licenses/MIT).
+Copyright (c) 2026 Sunil Chaware. Licensed under the MIT License.
+https://opensource.org/licenses/MIT
