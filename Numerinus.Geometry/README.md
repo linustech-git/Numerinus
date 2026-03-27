@@ -25,6 +25,8 @@ Numerinus.Geometry/
     Shapes/
         Circle.cs       Circle with area, circumference, arc calculations
         Triangle.cs     Triangle with full geometric analysis
+        Rectangle.cs    Rectangle with area, perimeter, diagonal, incircle, circumcircle
+        Square.cs       Square extending Rectangle with side-specific formulas
     Transforms/
         Transform2D.cs  2D affine transformation using 3x3 homogeneous matrix
 
@@ -33,7 +35,7 @@ Numerinus.Geometry/
 ## Dependencies
 
 This module depends on:
-    Numerinus.Core   for Scalar, IArithmetic, NumerinusConstants
+    Numerinus.Core      for Scalar, IArithmetic, NumerinusConstants
     Numerinus.Algebra   for Matrix(Scalar) used in Transform2D
 
 ---
@@ -107,6 +109,54 @@ This module depends on:
     var fromArea    = Circle.FromArea(78.539);
     var fromDiam    = Circle.FromDiameter(10);
 
+### Rectangle
+
+    using Numerinus.Geometry.Shapes;
+
+    var r = new Rectangle(6, 4);
+
+    var area                = r.Area;
+    var perimeter           = r.Perimeter;
+    var diagonal            = r.Diagonal;
+    var halfDiagonal        = r.HalfDiagonal;
+    var diagAngle           = r.DiagonalAngleDegrees;
+    var longerSide          = r.LongerSide;
+    var shorterSide         = r.ShorterSide;
+    var centreToLonger      = r.CentreToLongerSide;
+    var centreToShorter     = r.CentreToShorterSide;
+    var incircleRadius      = r.IncircleRadius;
+    var circumcircleRadius  = r.CircumcircleRadius;
+    var incircle            = r.Incircle;
+    var circumcircle        = r.Circumcircle;
+    var isSquare            = r.IsSquare;
+
+    var fromArea        = Rectangle.FromAreaAndWidth(24, 6);
+    var fromPerimeter   = Rectangle.FromPerimeterAndWidth(20, 6);
+    var fromDiagonal    = Rectangle.FromDiagonalAndWidth(10, 6);
+
+### Square
+
+    using Numerinus.Geometry.Shapes;
+
+    var s = new Square(5);
+
+    var side                = s.Side;
+    var area                = s.Area;
+    var perimeter           = s.Perimeter;
+    var diagonal            = s.Diagonal;
+    var halfDiagonal        = s.HalfDiagonal;
+    var diagAngle           = s.DiagonalAngleDegrees;
+    var incircleRadius      = s.IncircleRadius;
+    var circumcircleRadius  = s.CircumcircleRadius;
+    var incircle            = s.Incircle;
+    var circumcircle        = s.Circumcircle;
+
+    var fromArea        = Square.FromArea(25);
+    var fromPerimeter   = Square.FromPerimeter(20);
+    var fromDiagonal    = Square.FromDiagonal(7.071);
+    var fromCircumR     = Square.FromCircumradius(3.535);
+    var fromInradius    = Square.FromInradius(2.5);
+
 ### Triangle — from sides only (SSS)
 
     using Numerinus.Geometry.Shapes;
@@ -145,10 +195,10 @@ This module depends on:
 
 ### Triangle — factory constructors
 
-    var sas  = Triangle.FromTwoSidesAndAngleDegrees(4, 5, 60);
-    var aas  = Triangle.FromOneSideAndTwoAnglesDegrees(5, 60, 80);
-    var eq   = Triangle.Equilateral(6);
-    var iso  = Triangle.Isoceles(4, 7);
+    var sas   = Triangle.FromTwoSidesAndAngleDegrees(4, 5, 60);
+    var aas   = Triangle.FromOneSideAndTwoAnglesDegrees(5, 60, 80);
+    var eq    = Triangle.Equilateral(6);
+    var iso   = Triangle.Isoceles(4, 7);
     var right = Triangle.RightAngle(3, 4);
 
 ### Transform2D
@@ -177,24 +227,24 @@ This module depends on:
 Immutable readonly struct. Represents a 2D direction or displacement.
 
 Properties
-    X, Y            Scalar components
-    Magnitude       Length: sqrt(x2 + y2)
+    X, Y               Scalar components
+    Magnitude          Length: sqrt(x2 + y2)
     MagnitudeSquared   Length squared, no sqrt cost
-    Zero            (0, 0)
-    UnitX           (1, 0)
-    UnitY           (0, 1)
+    Zero               (0, 0)
+    UnitX              (1, 0)
+    UnitY              (0, 1)
 
 Methods
-    Normalise()                     Returns unit vector in same direction
-    Dot(a, b)                       Scalar dot product: Ax*Bx + Ay*By
-    AngleBetween(a, b)              Angle in radians between two vectors
-    Distance(a, b)                  Euclidean distance between tip points
+    Normalise()                Returns unit vector in same direction
+    Dot(a, b)                  Scalar dot product: Ax*Bx + Ay*By
+    AngleBetween(a, b)         Angle in radians between two vectors
+    Distance(a, b)             Euclidean distance between tip points
 
 Operators
-    v1 + v2, v1 - v2                Component-wise add / subtract
-    v * scalar, scalar * v          Scale vector
-    v / scalar                      Divide vector
-    -v                              Negate
+    v1 + v2, v1 - v2           Component-wise add / subtract
+    v * scalar, scalar * v     Scale vector
+    v / scalar                 Divide vector
+    -v                         Negate
 
 ---
 
@@ -203,15 +253,14 @@ Operators
 Immutable readonly struct. Represents a 3D direction or displacement.
 
 Properties
-    X, Y, Z         Scalar components
-    Magnitude       Length: sqrt(x2 + y2 + z2)
-    MagnitudeSquared
+    X, Y, Z
+    Magnitude, MagnitudeSquared
     Zero, UnitX, UnitY, UnitZ
 
 Methods
     Normalise()
-    Dot(a, b)                       Ax*Bx + Ay*By + Az*Bz
-    Cross(a, b)                     Perpendicular vector (3D only)
+    Dot(a, b)          Ax*Bx + Ay*By + Az*Bz
+    Cross(a, b)        Perpendicular vector (3D only)
     AngleBetween(a, b)
     Distance(a, b)
 
@@ -225,22 +274,22 @@ Operators
 Immutable readonly struct. Represents a fixed position in 2D space.
 
 Properties
-    X, Y            Scalar coordinates
-    Origin          (0, 0)
+    X, Y
+    Origin             (0, 0)
 
 Methods
-    DistanceTo(other)               Euclidean distance
-    Distance(a, b)                  Static version
-    DistanceSquared(a, b)           Squared distance, no sqrt
-    MidpointTo(other)               Midpoint between two points
-    Midpoint(a, b)                  Static version
-    ToVector2()                     Converts to position vector
-    FromVector2(v)                  Creates point from vector
+    DistanceTo(other)
+    Distance(a, b)
+    DistanceSquared(a, b)
+    MidpointTo(other)
+    Midpoint(a, b)
+    ToVector2()
+    FromVector2(v)
 
 Operators
-    point + vector                  Translate point
-    point - vector                  Translate in reverse
-    point - point                   Returns Vector2 direction
+    point + vector     Translate point
+    point - vector     Translate in reverse
+    point - point      Returns Vector2 direction
 
 ---
 
@@ -250,16 +299,12 @@ Immutable readonly struct. Represents a fixed position in 3D space.
 
 Properties
     X, Y, Z
-    Origin          (0, 0, 0)
+    Origin             (0, 0, 0)
 
 Methods
-    DistanceTo(other)
-    Distance(a, b)
-    DistanceSquared(a, b)
-    MidpointTo(other)
-    Midpoint(a, b)
-    ToVector3()
-    FromVector3(v)
+    DistanceTo(other), Distance(a, b), DistanceSquared(a, b)
+    MidpointTo(other), Midpoint(a, b)
+    ToVector3(), FromVector3(v)
 
 Operators
     point + vector, point - vector, point - point (returns Vector3)
@@ -272,20 +317,17 @@ Immutable class. Defined by radius. All arc methods accept radians or degrees.
 
 Construction
     new Circle(radius)
-    Circle.FromDiameter(d)          r = d / 2
-    Circle.FromCircumference(c)     r = C / (2 * Pi)
-    Circle.FromArea(a)              r = sqrt(A / Pi)
+    Circle.FromDiameter(d)              r = d / 2
+    Circle.FromCircumference(c)         r = C / (2 * Pi)
+    Circle.FromArea(a)                  r = sqrt(A / Pi)
 
 Properties
-    Radius
-    Diameter                        2r
-    Circumference                   2 * Pi * r
-    Area                            Pi * r2
+    Radius, Diameter, Circumference, Area
 
 Arc Methods (radians)
-    ArcLength(theta)                r * theta
-    ArcArea(theta)                  0.5 * r2 * theta
-    ArcPlusRadiusLength(theta)      Arc + 2r
+    ArcLength(theta)                    r * theta
+    ArcArea(theta)                      0.5 * r2 * theta
+    ArcPlusRadiusLength(theta)          Arc + 2r
 
 Arc Methods (degrees)
     ArcLengthDegrees(theta)
@@ -293,8 +335,64 @@ Arc Methods (degrees)
     ArcPlusRadiusLengthDegrees(theta)
 
 Reverse
-    AngleFromArcLength(arcLen)      theta = arcLen / r
+    AngleFromArcLength(arcLen)          theta = arcLen / r
     AngleDegreesFromArcLength(arcLen)
+
+---
+
+### Rectangle — Numerinus.Geometry.Shapes
+
+Immutable class. Defined by width and height. All four angles are 90 degrees.
+Square is a subclass of Rectangle.
+
+Construction
+    new Rectangle(width, height)
+    Rectangle.FromAreaAndWidth(area, width)           h = area / width
+    Rectangle.FromPerimeterAndWidth(perimeter, width) h = (perimeter / 2) - width
+    Rectangle.FromDiagonalAndWidth(diagonal, width)   h = sqrt(diagonal2 - width2)
+
+Properties
+    Width, Height
+    LongerSide, ShorterSide
+    Perimeter                           2 * (width + height)
+    Area                                width * height
+    Diagonal                            sqrt(width2 + height2)
+    HalfDiagonal                        diagonal / 2
+    DiagonalAngleDegrees                atan(height / width) in degrees
+    DiagonalAngleRadians                atan(height / width) in radians
+    CentreToLongerSide                  shorter side / 2
+    CentreToShorterSide                 longer side / 2
+    IncircleRadius                      shorter side / 2
+    CircumcircleRadius                  diagonal / 2
+    Incircle                            Returns Circle touching both longer sides
+    Circumcircle                        Returns Circle passing through all 4 corners
+    IsSquare                            True if width equals height
+
+---
+
+### Square — Numerinus.Geometry.Shapes
+
+Immutable sealed class. Extends Rectangle. All four sides are equal.
+Inherits all Rectangle properties. Square-specific members override with exact formulas.
+
+Construction
+    new Square(side)
+    Square.FromArea(area)               side = sqrt(area)
+    Square.FromPerimeter(perimeter)     side = perimeter / 4
+    Square.FromDiagonal(diagonal)       side = diagonal / sqrt(2)
+    Square.FromCircumradius(R)          side = R * sqrt(2)
+    Square.FromInradius(r)              side = 2 * r
+
+Properties (all inherited from Rectangle plus)
+    Side                                Same as Width
+    Diagonal                            side * sqrt(2)
+    HalfDiagonal                        side * sqrt(2) / 2
+    DiagonalAngleDegrees                Always 45
+    DiagonalAngleRadians                Always Pi / 4
+    IncircleRadius                      side / 2
+    CircumcircleRadius                  side * sqrt(2) / 2
+    Incircle                            Returns Circle touching all 4 sides
+    Circumcircle                        Returns Circle passing through all 4 corners
 
 ---
 
@@ -303,10 +401,10 @@ Reverse
 Immutable class. Two construction modes: sides only, or vertex positions.
 
 Construction — sides
-    new Triangle(a, b, c)           Three side lengths (SSS)
-    Triangle.FromTwoSidesAndAngle(a, b, angleRad)        SAS
+    new Triangle(a, b, c)                                   Three side lengths (SSS)
+    Triangle.FromTwoSidesAndAngle(a, b, angleRad)           SAS
     Triangle.FromTwoSidesAndAngleDegrees(a, b, angleDeg)
-    Triangle.FromOneSideAndTwoAngles(a, angleA, angleB)  AAS
+    Triangle.FromOneSideAndTwoAngles(a, angleA, angleB)     AAS
     Triangle.FromOneSideAndTwoAnglesDegrees(a, aA, aB)
     Triangle.Equilateral(side)
     Triangle.Isoceles(base, leg)
@@ -319,18 +417,15 @@ Side-based properties (always available)
     SideA, SideB, SideC
     Perimeter, SemiPerimeter
     Area                            Heron's formula
-    AngleADegrees/Radians
-    AngleBDegrees/Radians
-    AngleCDegrees/Radians
+    AngleADegrees/Radians, AngleBDegrees/Radians, AngleCDegrees/Radians
     HeightA, HeightB, HeightC
     Inradius, Circumradius
     IncircleRadius, CircumcircleRadius
-    Incircle                        Returns Circle
-    Circumcircle                    Returns Circle
+    Incircle, Circumcircle          Returns Circle
 
 Vertex-based properties (requires Point2D constructor)
     A, B, C                         Vertex positions
-    HasVertices                     True if constructed from Point2D
+    HasVertices
     Centroid                        Intersection of medians
     IncircleCentre                  Weighted vertex average by opposite side
     CircumcircleCentre              Perpendicular bisector intersection
@@ -380,6 +475,12 @@ Triangle vertex requirement. Centroid, IncircleCentre and CircumcircleCentre
 require the triangle to be constructed from Point2D vertices. Accessing them
 on a sides-only triangle throws InvalidOperationException. IncircleRadius and
 CircumcircleRadius are always available since they only need side lengths.
+
+Square extends Rectangle. Square inherits every Rectangle property. Members that
+have exact closed-form formulas for a square (Diagonal, IncircleRadius,
+DiagonalAngleDegrees, etc.) are overridden with the precise square formula.
+Rectangle.IsSquare returns true when width equals height within floating-point
+tolerance, so a Rectangle can also be checked without casting.
 
 ---
 
