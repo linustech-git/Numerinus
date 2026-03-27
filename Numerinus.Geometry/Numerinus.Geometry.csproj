@@ -12,7 +12,7 @@
 
 		<!-- Package Identity -->
 		<PackageId>Numerinus.Geometry</PackageId>
-		<Version>1.0.0</Version>
+		<Version>1.0.1</Version>
 		<Authors>Sunil Chaware</Authors>
 		<Copyright>Copyright (c) 2026 Sunil Chaware. All rights reserved.</Copyright>
 
@@ -23,7 +23,7 @@
 		<!-- Package Metadata -->
 		<Title>Numerinus.Geometry</Title>
 		<Description>Geometry module for the Numerinus mathematical suite. Provides geometric types and transformations built on Numerinus.Core.</Description>
-		<PackageTags>math;geometry;transformations;numerics;vectors;points;shapes;triangle;circle;transform;matrix</PackageTags>
+		<PackageTags>math;geometry;transformations;numerics;vectors;points;shapes;triangle;circle;transform;matrix; square; rectangle;</PackageTags>
 		<RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
