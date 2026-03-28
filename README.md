@@ -1,11 +1,16 @@
-This library is intended to help developers perform various mathematical and statistical calculations.
+Numerinus is a mathematical library. It is there to help all developers with all kinds of calculations, numbers and constants.
 
-It has various packages like:
+It includes many projects like:
 
 Numerinus.Core
 Numerinus.Algebra
 Numerinus.Geometry
-Numerinus.Statistics
 Numerinus.Calculus
+Numerinus.Statistics
 
-The features are being release by versions.
+There will be developments and additions going on in the above projects.
+We are planning few more projects like:
+Numerinus.Civil
+Numerinus.Trignometry
+Numerinus.Chemistry
+Numerinus.Physics
