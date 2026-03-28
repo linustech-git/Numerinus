@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Numerinus.Algebra
 {
-    public class SimpleArtihmetic
+    public class SimpleArithmetic
     {
         /// <summary>
         /// Addition of 2 numbers. 
