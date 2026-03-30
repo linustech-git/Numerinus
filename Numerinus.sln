@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.Algebra", "Numeri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.Calculus", "Numerinus.Calculus\Numerinus.Calculus.csproj", "{DE406666-EB59-360C-617B-E3F7C4ABAF84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.UnitConversion", "Numerinus.UnitConversion\Numerinus.UnitConversion.csproj", "{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,18 @@ Global
 		{DE406666-EB59-360C-617B-E3F7C4ABAF84}.Release|x64.Build.0 = Release|Any CPU
 		{DE406666-EB59-360C-617B-E3F7C4ABAF84}.Release|x86.ActiveCfg = Release|Any CPU
 		{DE406666-EB59-360C-617B-E3F7C4ABAF84}.Release|x86.Build.0 = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|x64.Build.0 = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Debug|x86.Build.0 = Debug|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|x64.ActiveCfg = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|x64.Build.0 = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|x86.ActiveCfg = Release|Any CPU
+		{21B7F8B5-DA37-430D-88BC-0CFB2E8A798B}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
