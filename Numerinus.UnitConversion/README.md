@@ -105,6 +105,49 @@ var converter = new VolumeConverter();
 
 ---
 
+## Speed
+
+|Enum Value	| Unit
+|---|---|
+| `MeterPerSecond` | Meter per Second (m/s) — base unit |
+| `KilometerPerHour` | Kilometer per Hour (km/h) |
+| `MeterPerMinute` | Meter per Minute (m/min) |
+| `CentimeterPerSecond` | Centimeter per Second (cm/s) |
+| `MilePerHour` | Mile per Hour (mph) |
+| `FootPerSecond` | Foot per Second (ft/s) |
+| `FootPerMinute` | Foot per Minute (ft/min) |
+| `InchPerSecond` | Inch per Second (in/s) |
+| `Knot` | Knot (nmi/h) |
+| `MachNumber` | Mach Number (≈ 343 m/s at sea level, 20°C) |
+| `SpeedOfLight` | Speed of Light (c = 299,792,458 m/s) |
+
+### Usage
+
+using Numerinus.Core.Enums;
+using Numerinus.UnitConversion.Calculators;
+
+var converter = new SpeedConverter();
+
+// Kilometers per Hour to Miles per Hour
+double mph = converter.Convert(100, SpeedEnum.KilometerPerHour, SpeedEnum.MilePerHour);
+Console.WriteLine(mph); // ~62.1371
+
+// Meters per Second to Knots
+double knots = converter.Convert(10, SpeedEnum.MeterPerSecond, SpeedEnum.Knot);
+Console.WriteLine(knots); // ~19.4384
+
+// Miles per Hour to Mach Number
+double mach = converter.Convert(767, SpeedEnum.MilePerHour, SpeedEnum.MachNumber);
+Console.WriteLine(mach); // ~1.0 (approximately Mach 1)
+
+// To base unit (m/s)
+double ms = converter.ConvertToBaseUnit(120, SpeedEnum.KilometerPerHour);
+Console.WriteLine(ms); // 33.3333
+
+// From base unit (m/s)
+double ftps = converter.ConvertFromBaseUnit(10, SpeedEnum.FootPerSecond);
+Console.WriteLine(ftps); // ~32.8084
+
 ## Architecture
 
 All converters implement the generic `IUnitConversion<TUnit>` interface from `Numerinus.Core`:
