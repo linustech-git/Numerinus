@@ -1,7 +1,6 @@
-
 # Project Title
 
-A brief description of what this project does and who it's for
+Numerinus.UnitConversion
 
 # Numerinus.UnitConversion
 
@@ -147,6 +146,40 @@ Console.WriteLine(ms); // 33.3333
 // From base unit (m/s)
 double ftps = converter.ConvertFromBaseUnit(10, SpeedEnum.FootPerSecond);
 Console.WriteLine(ftps); // ~32.8084
+
+## Temperature Conversion
+
+Base unit: **Celsius (°C)**
+
+> ⚠️ Temperature conversions involve **offsets**, not just scaling. The standard base unit multiply/divide strategy does not apply here. All units convert through Celsius as the intermediate step.
+
+### Supported Units (`TemperatureEnum`)
+
+| Enum Value | Unit |
+|---|---|
+| `Celsius` | Celsius (°C) — base unit |
+| `Fahrenheit` | Fahrenheit (°F) |
+| `Kelvin` | Kelvin (K) |
+| `Rankine` | Rankine (°R) |
+| `Delisle` | Delisle (°De) |
+| `Newton` | Newton (°N) |
+| `Reaumur` | Réaumur (°Ré) |
+| `Romer` | Rømer (°Rø) |
+
+### Conversion Formulas
+
+| From | To Celsius |
+|---|---|
+| Fahrenheit | (°F − 32) × 5/9 |
+| Kelvin | K − 273.15 |
+| Rankine | (°R − 491.67) × 5/9 |
+| Delisle | 100 − °De × 2/3 |
+| Newton | °N × 100/33 |
+| Réaumur | °Ré × 5/4 |
+| Rømer | (°Rø − 7.5) × 40/21 |
+
+### Usage
+---
 
 ## Architecture
 
