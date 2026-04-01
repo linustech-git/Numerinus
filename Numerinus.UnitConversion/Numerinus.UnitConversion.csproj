@@ -11,7 +11,7 @@
 
     <!-- Package Identity -->
     <PackageId>Numerinus.UnitConversion</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Authors>Sunil Chaware</Authors>
     <Copyright>Copyright (c) 2026 Sunil Chaware. All rights reserved.</Copyright>
 
@@ -21,7 +21,7 @@
     <!-- Package Metadata -->
     <Title>Numerinus.UnitConversion</Title>
     <Description>Unit conversion module for the Numerinus mathematical suite. Provides conversion between physical units built on Numerinus.Core.</Description>
-    <PackageTags>math;unit;conversion;numerics;measurement;physics;numerinus; speed;length;volume;</PackageTags>
+    <PackageTags>math;unit;conversion;numerics;measurement;physics;numerinus; temperature;speed;length;volume;</PackageTags>
     <RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.md</PackageReadmeFile>
