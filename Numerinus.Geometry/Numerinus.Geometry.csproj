@@ -2,7 +2,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Numerinus.Core\Numerinus.Core.csproj" />
-		<ProjectReference Include="..\Numerinus.Algebra\Numerinus.Algebra.csproj" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -12,7 +11,7 @@
 
 		<!-- Package Identity -->
 		<PackageId>Numerinus.Geometry</PackageId>
-		<Version>1.0.2</Version>
+		<Version>1.1.0</Version>
 		<Authors>Sunil Chaware</Authors>
 		<Copyright>Copyright (c) 2026 Sunil Chaware. All rights reserved.</Copyright>
 
@@ -36,6 +35,12 @@
 
 	<ItemGroup>
 		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <Folder Include="Shapes3D\" />
 	</ItemGroup>
 
 </Project>

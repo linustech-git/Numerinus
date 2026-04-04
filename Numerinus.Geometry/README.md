@@ -1,6 +1,6 @@
 # Numerinus.Geometry
 
-Geometry module for the Numerinus mathematical suite. Built on Numerinus.Core and Numerinus.Algebra, this package provides immutable 2D and 3D geometric types, shape calculations, and affine transformations.
+Geometry module for the **Numerinus** mathematical suite. Built on Numerinus.Core and Numerinus.Algebra, this package provides immutable 2D and 3D geometric types, shape calculations, and affine transformations.
 
 [![NuGet](https://img.shields.io/nuget/v/Numerinus.Geometry)](https://www.nuget.org/packages/Numerinus.Geometry)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -24,9 +24,11 @@ Numerinus.Geometry/
         Point3D.cs      3D point with X, Y, Z coordinates
     Shapes/
         Circle.cs       Circle with area, circumference, arc calculations
+        Sphere.cs       Sphere with volume, surface area, great circle
         Triangle.cs     Triangle with full geometric analysis
         Rectangle.cs    Rectangle with area, perimeter, diagonal, incircle, circumcircle
         Square.cs       Square extending Rectangle with side-specific formulas
+        Cube.cs         Cube with volume, surface area, diagonals, insphere, circumsphere
     Transforms/
         Transform2D.cs  2D affine transformation using 3x3 homogeneous matrix
 
@@ -109,6 +111,23 @@ This module depends on:
     var fromArea    = Circle.FromArea(78.539);
     var fromDiam    = Circle.FromDiameter(10);
 
+### Sphere
+
+    using Numerinus.Geometry.Shapes;
+
+    var s = new Sphere(5);
+
+    var volume          = s.Volume;
+    var surfaceArea     = s.SurfaceArea;
+    var diameter        = s.Diameter;
+    var greatCircle     = s.GreatCircle;
+    var gcCircumference = s.GreatCircleCircumference;
+    var gcArea          = s.GreatCircleArea;
+
+    var fromDiam        = Sphere.FromDiameter(10);
+    var fromVolume      = Sphere.FromVolume(523.6);
+    var fromSurface     = Sphere.FromSurfaceArea(314.16);
+
 ### Rectangle
 
     using Numerinus.Geometry.Shapes;
@@ -156,6 +175,37 @@ This module depends on:
     var fromDiagonal    = Square.FromDiagonal(7.071);
     var fromCircumR     = Square.FromCircumradius(3.535);
     var fromInradius    = Square.FromInradius(2.5);
+
+### Cube
+
+    using Numerinus.Geometry.Shapes;
+
+    var c = new Cube(4);
+
+    var volume              = c.Volume;
+    var surfaceArea         = c.SurfaceArea;
+    var lateralSurfaceArea  = c.LateralSurfaceArea;
+    var faceArea            = c.FaceArea;
+    var faceDiagonal        = c.FaceDiagonal;
+    var spaceDiagonal       = c.SpaceDiagonal;
+    var totalEdgeLength     = c.TotalEdgeLength;
+    var edgeCount           = c.EdgeCount;
+    var faceCount           = c.FaceCount;
+    var vertexCount         = c.VertexCount;
+    var insphereRadius      = c.InsphereRadius;
+    var midsphereRadius     = c.MidsphereRadius;
+    var circumsphereRadius  = c.CircumsphereRadius;
+    var insphere            = c.Insphere;
+    var midsphere           = c.Midsphere;
+    var circumsphere        = c.Circumsphere;
+    var face                = c.Face;
+
+    var fromVolume      = Cube.FromVolume(64);
+    var fromSurface     = Cube.FromSurfaceArea(96);
+    var fromSpaceDiag   = Cube.FromSpaceDiagonal(6.928);
+    var fromFaceDiag    = Cube.FromFaceDiagonal(5.657);
+    var fromInsphere    = Cube.FromInsphereRadius(2);
+    var fromCircumsphere = Cube.FromCircumsphereRadius(3.464);
 
 ### Triangle — from sides only (SSS)
 
@@ -313,7 +363,7 @@ Operators
 
 ### Circle — Numerinus.Geometry.Shapes
 
-Immutable class. Defined by radius. All arc methods accept radians or degrees.
+Immutable sealed class. Defined by radius. All arc methods accept radians or degrees.
 
 Construction
     new Circle(radius)
@@ -337,6 +387,26 @@ Arc Methods (degrees)
 Reverse
     AngleFromArcLength(arcLen)          theta = arcLen / r
     AngleDegreesFromArcLength(arcLen)
+
+---
+
+### Sphere — Numerinus.Geometry.Shapes
+
+Immutable sealed class. Defined by radius.
+
+Construction
+    new Sphere(radius)
+    Sphere.FromDiameter(d)              r = d / 2
+    Sphere.FromVolume(V)                r = cbrt(3V / 4Pi)
+    Sphere.FromSurfaceArea(A)           r = sqrt(A / 4Pi)
+
+Properties
+    Radius, Diameter
+    SurfaceArea                         4 * Pi * r2
+    Volume                              (4/3) * Pi * r3
+    GreatCircleCircumference            2 * Pi * r
+    GreatCircleArea                     Pi * r2
+    GreatCircle                         Returns Circle at equator
 
 ---
 
@@ -393,6 +463,43 @@ Properties (all inherited from Rectangle plus)
     CircumcircleRadius                  side * sqrt(2) / 2
     Incircle                            Returns Circle touching all 4 sides
     Circumcircle                        Returns Circle passing through all 4 corners
+
+---
+
+### Cube — Numerinus.Geometry.Shapes
+
+Immutable sealed class. A regular hexahedron with 6 equal square faces, 12 edges, 8 vertices.
+
+Construction
+    new Cube(edge)
+    Cube.FromVolume(V)                  edge = cbrt(V)
+    Cube.FromSurfaceArea(A)             edge = sqrt(A / 6)
+    Cube.FromSpaceDiagonal(d)           edge = d / sqrt(3)
+    Cube.FromFaceDiagonal(d)            edge = d / sqrt(2)
+    Cube.FromInsphereRadius(r)          edge = 2r
+    Cube.FromCircumsphereRadius(R)      edge = 2R / sqrt(3)
+
+Properties
+    Edge
+    Volume                              edge3
+    SurfaceArea                         6 * edge2
+    LateralSurfaceArea                  4 * edge2
+    FaceArea                            edge2
+    FaceDiagonal                        edge * sqrt(2)
+    SpaceDiagonal                       edge * sqrt(3)
+    TotalEdgeLength                     12 * edge
+    EdgeCount                           12
+    FaceCount                           6
+    VertexCount                         8
+    InsphereRadius                      edge / 2
+    MidsphereRadius                     edge * sqrt(2) / 2
+    CircumsphereRadius                  edge * sqrt(3) / 2
+    Insphere                            Returns Sphere touching all 6 faces
+    Midsphere                           Returns Sphere tangent to all 12 edges
+    Circumsphere                        Returns Sphere through all 8 vertices
+    Face                                Returns Square face
+    SpaceToFaceDiagonalAngleDegrees     ~35.26 degrees
+    SpaceToEdgeAngleDegrees             ~54.74 degrees
 
 ---
 
@@ -481,6 +588,11 @@ have exact closed-form formulas for a square (Diagonal, IncircleRadius,
 DiagonalAngleDegrees, etc.) are overridden with the precise square formula.
 Rectangle.IsSquare returns true when width equals height within floating-point
 tolerance, so a Rectangle can also be checked without casting.
+
+Cube insphere, midsphere and circumsphere. Three distinct spheres are defined for
+a cube. The insphere touches all six faces (r = edge/2). The midsphere is tangent
+to all twelve edges (rho = edge*sqrt(2)/2). The circumsphere passes through all
+eight vertices (R = edge*sqrt(3)/2). All three are returned as Sphere instances.
 
 ---
 

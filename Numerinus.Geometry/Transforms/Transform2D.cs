@@ -1,8 +1,8 @@
 ﻿// Copyright (c) 2026 Sunil Chaware. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-using Numerinus.Algebra.Matrices;
 using Numerinus.Core.Constants;
+using Numerinus.Core.Matrices;
 using Numerinus.Core.Numerics;
 using Numerinus.Geometry.Points;
 using Numerinus.Geometry.Vectors;
