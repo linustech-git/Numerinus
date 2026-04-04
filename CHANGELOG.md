@@ -11,6 +11,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - Numerinus.Geometry | [1.0.6] - Numerinus.Core — 2026-04-04
+
+### Added
+- `Cube` 3D shape class (`Numerinus.Geometry/Shapes3D/Cube.cs`) with volume, surface area, and diagonal calculations
+- `Sphere` 3D shape class (`Numerinus.Geometry/Shapes3D/Sphere.cs`) with volume and surface area calculations
+- `Matrix` class added to `Numerinus.Core` (`Numerinus.Core/Matrices/Matrix.cs`)
+- Updated `Numerinus.Geometry` README with 3D shapes documentation
+
+### Changed
+- Bumped `Numerinus.Geometry` version to `1.1.0`
+- Bumped `Numerinus.Core` version to `1.0.6`
+- Removed unnecessary `Numerinus.Algebra` project reference from `Numerinus.Geometry`
+- Minor fix in `Transform2D.cs`
+
+---
+
 ## [1.1.1] - Numerinus.Algebra — 2026-04-03
 
 ### Added
