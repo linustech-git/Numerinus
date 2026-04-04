@@ -7,6 +7,9 @@ public class VolumeConverter : IUnitConversion<VolumeEnum>
 {
     public double Convert(double value, VolumeEnum fromUnit, VolumeEnum toUnit)
     {
+        if (double.IsNaN(value) || double.IsInfinity(value))
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Value must be a finite number.");
+
         double baseValue = ConvertToBaseUnit(value, fromUnit);
         return ConvertFromBaseUnit(baseValue, toUnit);
     }
@@ -29,7 +32,7 @@ public class VolumeConverter : IUnitConversion<VolumeEnum>
             VolumeEnum.Pint => value * 4.73176e-4,
             VolumeEnum.Quart => value * 9.46353e-4,
             VolumeEnum.Gallon => value * 3.78541e-3,
-            _ => throw new ArgumentException("Invalid volume unit")
+            _ => throw new ArgumentOutOfRangeException(nameof(fromUnit), fromUnit, $"Unrecognised volume unit '{fromUnit}'.")
         };
     }
 
@@ -37,21 +40,21 @@ public class VolumeConverter : IUnitConversion<VolumeEnum>
     {
         return toUnit switch
         {
-            VolumeEnum.CubicMillimeter => baseValue / 1e-9,
-            VolumeEnum.CubicCentimeter => baseValue / 1e-6,
-            VolumeEnum.CubicDecimeter => baseValue / 1e-3,
+            VolumeEnum.CubicMillimeter => baseValue * 1e9,
+            VolumeEnum.CubicCentimeter => baseValue * 1e6,
+            VolumeEnum.CubicDecimeter => baseValue * 1e3,
             VolumeEnum.CubicMeter => baseValue,
-            VolumeEnum.CubicKilometer => baseValue / 1e9,
-            VolumeEnum.Milliliter => baseValue / 1e-6,
-            VolumeEnum.Liter => baseValue / 1e-3,
-            VolumeEnum.Deciliter => baseValue / 1e-4,
-            VolumeEnum.Hectoliter => baseValue / 0.1,
-            VolumeEnum.Kiloliter => baseValue / 1,
-            VolumeEnum.FluidOunce => baseValue / 2.95735e-5,
-            VolumeEnum.Pint => baseValue / 4.73176e-4,
-            VolumeEnum.Quart => baseValue / 9.46353e-4,
-            VolumeEnum.Gallon => baseValue / 3.78541e-3,
-            _ => throw new ArgumentException("Invalid volume unit")
+            VolumeEnum.CubicKilometer => baseValue * 1e-9,
+            VolumeEnum.Milliliter => baseValue * 1e6,
+            VolumeEnum.Liter => baseValue * 1e3,
+            VolumeEnum.Deciliter => baseValue * 1e4,
+            VolumeEnum.Hectoliter => baseValue * 10,
+            VolumeEnum.Kiloliter => baseValue,
+            VolumeEnum.FluidOunce => baseValue * (1.0 / 2.95735e-5),
+            VolumeEnum.Pint => baseValue * (1.0 / 4.73176e-4),
+            VolumeEnum.Quart => baseValue * (1.0 / 9.46353e-4),
+            VolumeEnum.Gallon => baseValue * (1.0 / 3.78541e-3),
+            _ => throw new ArgumentOutOfRangeException(nameof(toUnit), toUnit, $"Unrecognised volume unit '{toUnit}'.")
         };
     }
 }

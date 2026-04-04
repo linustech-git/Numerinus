@@ -7,6 +7,15 @@ public class TemperatureConverter : IUnitConversion<TemperatureEnum>
 {
     public double Convert(double value, TemperatureEnum fromUnit, TemperatureEnum toUnit)
     {
+        if (double.IsNaN(value) || double.IsInfinity(value))
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Value must be a finite number.");
+
+        if (fromUnit == TemperatureEnum.Kelvin && value < 0)
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Kelvin values cannot be negative.");
+
+        if (fromUnit == TemperatureEnum.Rankine && value < 0)
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Rankine values cannot be negative.");
+
         double celsius = ConvertToBaseUnit(value, fromUnit);
         return ConvertFromBaseUnit(celsius, toUnit);
     }
@@ -23,7 +32,7 @@ public class TemperatureConverter : IUnitConversion<TemperatureEnum>
             TemperatureEnum.Newton => value * 100 / 33,
             TemperatureEnum.Reaumur => value * 5 / 4,
             TemperatureEnum.Romer => (value - 7.5) * 40 / 21,
-            _ => throw new ArgumentException("Invalid temperature unit")
+            _ => throw new ArgumentOutOfRangeException(nameof(fromUnit), fromUnit, $"Unrecognised temperature unit '{fromUnit}'.")
         };
     }
 
@@ -39,7 +48,7 @@ public class TemperatureConverter : IUnitConversion<TemperatureEnum>
             TemperatureEnum.Newton => celsius * 33 / 100,
             TemperatureEnum.Reaumur => celsius * 4 / 5,
             TemperatureEnum.Romer => celsius * 21 / 40 + 7.5,
-            _ => throw new ArgumentException("Invalid temperature unit")
+            _ => throw new ArgumentOutOfRangeException(nameof(toUnit), toUnit, $"Unrecognised temperature unit '{toUnit}'.")
         };
     }
 }

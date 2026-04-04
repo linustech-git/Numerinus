@@ -7,6 +7,9 @@ public class SpeedConverter : IUnitConversion<SpeedEnum>
 {
     public double Convert(double value, SpeedEnum fromUnit, SpeedEnum toUnit)
     {
+        if (double.IsNaN(value) || double.IsInfinity(value))
+            throw new ArgumentOutOfRangeException(nameof(value), value, "Value must be a finite number.");
+
         double baseValue = ConvertToBaseUnit(value, fromUnit);
         return ConvertFromBaseUnit(baseValue, toUnit);
     }
@@ -26,7 +29,7 @@ public class SpeedConverter : IUnitConversion<SpeedEnum>
             SpeedEnum.Knot => value * 0.514444,
             SpeedEnum.MachNumber => value * 343.0,
             SpeedEnum.SpeedOfLight => value * 299_792_458.0,
-            _ => throw new ArgumentException("Invalid speed unit")
+            _ => throw new ArgumentOutOfRangeException(nameof(fromUnit), fromUnit, $"Unrecognised speed unit '{fromUnit}'.")
         };
     }
 
@@ -38,14 +41,14 @@ public class SpeedConverter : IUnitConversion<SpeedEnum>
             SpeedEnum.KilometerPerHour => baseValue * 3.6,
             SpeedEnum.MeterPerMinute => baseValue * 60,
             SpeedEnum.CentimeterPerSecond => baseValue * 100,
-            SpeedEnum.MilePerHour => baseValue / 0.44704,
-            SpeedEnum.FootPerSecond => baseValue / 0.3048,
-            SpeedEnum.FootPerMinute => baseValue / 0.00508,
-            SpeedEnum.InchPerSecond => baseValue / 0.0254,
-            SpeedEnum.Knot => baseValue / 0.514444,
+            SpeedEnum.MilePerHour => baseValue * (1.0 / 0.44704),
+            SpeedEnum.FootPerSecond => baseValue * (1.0 / 0.3048),
+            SpeedEnum.FootPerMinute => baseValue * (1.0 / 0.00508),
+            SpeedEnum.InchPerSecond => baseValue * (1.0 / 0.0254),
+            SpeedEnum.Knot => baseValue * (1.0 / 0.514444),
             SpeedEnum.MachNumber => baseValue / 343.0,
             SpeedEnum.SpeedOfLight => baseValue / 299_792_458.0,
-            _ => throw new ArgumentException("Invalid speed unit")
+            _ => throw new ArgumentOutOfRangeException(nameof(toUnit), toUnit, $"Unrecognised speed unit '{toUnit}'.")
         };
     }
 }
