@@ -11,7 +11,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.1.0] - Numerinus.Geometry | [1.0.6] - Numerinus.Core — 2026-04-04
+## [1.1.2] - Numerinus.Algebra | [1.0.3] - Numerinus.UnitConversion | [1.0.7] - Numerinus.Core — 2026-04-07
+
+### Added
+- `SimpleArithmetic` aggregation operations: `Sum`, `Product`, `Average`, `Min`, `Max` (all accept `params double[]`)
+- `EnergyConverter` calculator supporting 15 energy units: Joule, Kilojoule, Megajoule, Gigajoule, WattHour, KilowattHour, MegawattHour, Calorie, Kilocalorie, BritishThermalUnit, Electronvolt, KiloElectronvolt, MegaElectronvolt, FootPound, Erg
+- `EnergyEnum` added to `Numerinus.Core`
+
+### Changed
+- Bumped `Numerinus.Algebra` version to `1.1.2`
+- Bumped `Numerinus.Core` version to `1.0.7`
+- Bumped `Numerinus.UnitConversion` version to `1.0.3`
+
+---
+
+## [1.1.0] - Numerinus.Geometry
 
 ### Added
 - `Cube` 3D shape class (`Numerinus.Geometry/Shapes3D/Cube.cs`) with volume, surface area, and diagonal calculations

@@ -148,5 +148,86 @@
         /// <param name="a">The number whose absolute value is required.</param>
         /// <returns>The absolute value of <paramref name="a"/>.</returns>
         public double AbsoluteValue(double a) => Math.Abs(a);
+
+        // -------------------------
+        // Aggregation Operations
+        // -------------------------
+
+        /// <summary>
+        /// Returns the sum of a collection of numbers.
+        /// </summary>
+        /// <param name="values">One or more numbers to sum.</param>
+        /// <returns>The sum of all provided values.</returns>
+        /// <exception cref="ArgumentException">Thrown when no values are provided.</exception>
+        public double Sum(params double[] values)
+        {
+            if (values == null || values.Length == 0)
+                throw new ArgumentException("At least one value must be provided.", nameof(values));
+            double result = 0;
+            foreach (double v in values)
+                result += v;
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the product of a collection of numbers.
+        /// </summary>
+        /// <param name="values">One or more numbers to multiply together.</param>
+        /// <returns>The product of all provided values.</returns>
+        /// <exception cref="ArgumentException">Thrown when no values are provided.</exception>
+        public double Product(params double[] values)
+        {
+            if (values == null || values.Length == 0)
+                throw new ArgumentException("At least one value must be provided.", nameof(values));
+            double result = 1;
+            foreach (double v in values)
+                result *= v;
+            return result;
+        }
+
+        /// <summary>
+        /// Returns the arithmetic mean of a collection of numbers.
+        /// </summary>
+        /// <param name="values">One or more numbers to average.</param>
+        /// <returns>The arithmetic mean of all provided values.</returns>
+        /// <exception cref="ArgumentException">Thrown when no values are provided.</exception>
+        public double Average(params double[] values)
+        {
+            if (values == null || values.Length == 0)
+                throw new ArgumentException("At least one value must be provided.", nameof(values));
+            return Sum(values) / values.Length;
+        }
+
+        /// <summary>
+        /// Returns the minimum value in a collection of numbers.
+        /// </summary>
+        /// <param name="values">One or more numbers to evaluate.</param>
+        /// <returns>The smallest value in the collection.</returns>
+        /// <exception cref="ArgumentException">Thrown when no values are provided.</exception>
+        public double Min(params double[] values)
+        {
+            if (values == null || values.Length == 0)
+                throw new ArgumentException("At least one value must be provided.", nameof(values));
+            double min = values[0];
+            for (int i = 1; i < values.Length; i++)
+                if (values[i] < min) min = values[i];
+            return min;
+        }
+
+        /// <summary>
+        /// Returns the maximum value in a collection of numbers.
+        /// </summary>
+        /// <param name="values">One or more numbers to evaluate.</param>
+        /// <returns>The largest value in the collection.</returns>
+        /// <exception cref="ArgumentException">Thrown when no values are provided.</exception>
+        public double Max(params double[] values)
+        {
+            if (values == null || values.Length == 0)
+                throw new ArgumentException("At least one value must be provided.", nameof(values));
+            double max = values[0];
+            for (int i = 1; i < values.Length; i++)
+                if (values[i] > max) max = values[i];
+            return max;
+        }
     }
 }
