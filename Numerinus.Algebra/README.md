@@ -30,6 +30,12 @@ Algebra module for the **Numerinus** mathematical suite. Built on top of `Numeri
   - Identifies free variables for underdetermined systems
   - Numerically stable for ill-conditioned systems
 
+- **`SimpleArithmetic` — Aggregation Operations** – Collection-based operations on `double[]`
+  - `Sum` — total of all values
+  - `Product` — product of all values
+  - `Average` — arithmetic mean
+  - `Min` / `Max` — smallest and largest value
+
 ---
 
 ## Polynomial Operations
@@ -537,17 +543,98 @@ if (solution.Type == SystemType.InfiniteSolutions)
 
 ---
 
-## API Reference
+## Aggregation Operations
 
-### `SimpleArithmetic<T>` – `Numerinus.Algebra`
+`SimpleArithmetic` provides a set of collection-based operations that accept any number of `double` values via `params double[]`.
 
-Generic arithmetic wrapper for any numeric type.
+All methods throw `ArgumentException` if called with no values.
+
+### Sum
+
+Returns the total of all provided values.
 
 ```csharp
-public T Add(T a, T b)
-public T Subtract(T a, T b)
-public T Multiply(T a, T b)
-public T Divide(T a, T b)
+var arith = new SimpleArithmetic();
+
+double total = arith.Sum(1, 2, 3, 4, 5);
+Console.WriteLine(total); // 15
+
+double[] values = { 10.5, 20.0, 30.5 };
+double result = arith.Sum(values);
+Console.WriteLine(result); // 61
+```
+
+### Product
+
+Returns the product of all provided values.
+
+```csharp
+double product = arith.Product(1, 2, 3, 4, 5);
+Console.WriteLine(product); // 120
+
+double compound = arith.Product(1.05, 1.05, 1.05); // 3-year compound growth factor
+Console.WriteLine(compound); // ~1.157625
+```
+
+### Average
+
+Returns the arithmetic mean.
+
+```csharp
+double avg = arith.Average(10, 20, 30, 40, 50);
+Console.WriteLine(avg); // 30
+
+double examAvg = arith.Average(72, 85, 91, 68, 79);
+Console.WriteLine(examAvg); // 79
+```
+
+### Min and Max
+
+Return the smallest and largest values in the collection.
+
+```csharp
+double min = arith.Min(3, 1, 4, 1, 5, 9, 2, 6);
+Console.WriteLine(min); // 1
+
+double max = arith.Max(3, 1, 4, 1, 5, 9, 2, 6);
+Console.WriteLine(max); // 9
+
+// Useful for range detection
+double[] data = { 14.2, 9.8, 22.1, 7.5, 18.0 };
+Console.WriteLine($"Range: {arith.Min(data)} – {arith.Max(data)}"); // Range: 7.5 – 22.1
+```
+
+---
+
+## API Reference
+
+### `SimpleArithmetic` – `Numerinus.Algebra`
+
+Arithmetic and aggregation operations on `double` values.
+
+```csharp
+// Basic arithmetic
+public double Add(double a, double b)
+public double Subtract(double a, double b)
+public double Multiply(double a, double b)
+public double Divide(double a, double b)       // throws DivideByZeroException if b == 0
+public double Modulo(double a, double b)       // throws DivideByZeroException if b == 0
+public double Power(double a, double b)
+public double SquareRoot(double a)             // throws ArgumentOutOfRangeException if a < 0
+public double AbsoluteValue(double a)
+
+// Number theory
+public double Factorial(int n)                 // throws ArgumentOutOfRangeException if n < 0
+public long GreatestCommonDivisor(long a, long b)
+public long LeastCommonMultiple(long a, long b)
+public bool IsPrime(long n)
+
+// Aggregation
+public double Sum(params double[] values)
+public double Product(params double[] values)
+public double Average(params double[] values)
+public double Min(params double[] values)
+public double Max(params double[] values)
 ```
 
 ### `Polynomial<T>` – `Numerinus.Algebra.Polynomials`
