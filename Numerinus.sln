@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.UnitConversion", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.Licensing", "Numerinus.Licensing\Numerinus.Licensing.csproj", "{73903884-0CA2-00F5-C49E-B022957A6FDC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerinus.Finance", "Numerinus.Finance\Numerinus.Finance.csproj", "{745C3D78-3C00-CA2B-3269-408467517DFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,18 @@ Global
 		{73903884-0CA2-00F5-C49E-B022957A6FDC}.Release|x64.Build.0 = Release|Any CPU
 		{73903884-0CA2-00F5-C49E-B022957A6FDC}.Release|x86.ActiveCfg = Release|Any CPU
 		{73903884-0CA2-00F5-C49E-B022957A6FDC}.Release|x86.Build.0 = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|x64.Build.0 = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Debug|x86.Build.0 = Debug|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|x64.ActiveCfg = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|x64.Build.0 = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|x86.ActiveCfg = Release|Any CPU
+		{745C3D78-3C00-CA2B-3269-408467517DFA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
