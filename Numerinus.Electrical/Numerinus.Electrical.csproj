@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <!-- Package Identity -->
+        <PackageId>Numerinus.Electrical</PackageId>
+        <Version>1.0.0</Version>
+        <Authors>Sunil Chaware</Authors>
+        <Copyright>Copyright (c) 2026 Sunil Chaware. All rights reserved.</Copyright>
+
+        <!-- License -->
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+        <!-- Package Metadata -->
+        <Title>Numerinus.Electrical</Title>
+        <Description>Electrical engineering calculations module for the Numerinus mathematical suite. Provides Ohm's law, power, circuit, and AC circuit calculators.</Description>
+        <PackageTags>math;electrical;ohms-law;power;circuit;ac;impedance;reactance;numerics</PackageTags>
+        <RepositoryUrl>https://github.com/linustech-git/Numerinus</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+
+        <!-- Pack Settings -->
+        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Numerinus.Core\Numerinus.Core.csproj" />
+        <None Include="README.md" Pack="true" PackagePath="\" />
+    </ItemGroup>
+
+</Project>
