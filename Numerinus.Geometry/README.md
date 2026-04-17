@@ -29,6 +29,7 @@ Numerinus.Geometry/
         Rectangle.cs    Rectangle with area, perimeter, diagonal, incircle, circumcircle
         Square.cs       Square extending Rectangle with side-specific formulas
         Cube.cs         Cube with volume, surface area, diagonals, insphere, circumsphere
+        Cylinder.cs     Cylinder with volume, surface area, diagonal, insphere, circumsphere
     Transforms/
         Transform2D.cs  2D affine transformation using 3x3 homogeneous matrix
 
@@ -207,7 +208,31 @@ This module depends on:
     var fromInsphere    = Cube.FromInsphereRadius(2);
     var fromCircumsphere = Cube.FromCircumsphereRadius(3.464);
 
-### Triangle — from sides only (SSS)
+### Cylinder
+
+    using Numerinus.Geometry.Shapes;
+
+    var c = new Cylinder(3, 10);
+
+    var volume              = c.Volume;
+    var surfaceArea         = c.SurfaceArea;
+    var lateralSurfaceArea  = c.LateralSurfaceArea;
+    var baseArea            = c.BaseArea;
+    var diameter            = c.Diameter;
+    var baseCircumference   = c.BaseCircumference;
+    var diagonal            = c.Diagonal;
+    var slantHeight         = c.SlantHeight;
+    var insphereRadius      = c.InsphereRadius;
+    var circumsphereRadius  = c.CircumsphereRadius;
+    var circumsphere        = c.Circumsphere;
+    var baseCircle          = c.Base;
+
+    var fromDiameter        = Cylinder.FromDiameter(6, 10);
+    var fromVolAndHeight    = Cylinder.FromVolumeAndHeight(282.74, 10);
+    var fromVolAndRadius    = Cylinder.FromVolumeAndRadius(282.74, 3);
+    var fromLatAndHeight    = Cylinder.FromLateralSurfaceAreaAndHeight(188.5, 10);
+
+### Triangle
 
     using Numerinus.Geometry.Shapes;
 
@@ -503,7 +528,36 @@ Properties
 
 ---
 
-### Triangle — Numerinus.Geometry.Shapes
+### Cylinder — Numerinus.Geometry.Shapes
+
+Immutable sealed class. A right circular cylinder defined by radius and height.
+
+Construction
+    new Cylinder(radius, height)
+    Cylinder.FromDiameter(d, height)                    r = d / 2
+    Cylinder.FromVolumeAndHeight(V, height)             r = sqrt(V / (Pi * h))
+    Cylinder.FromVolumeAndRadius(V, radius)             h = V / (Pi * r2)
+    Cylinder.FromLateralSurfaceAreaAndHeight(A, height) r = A / (2 * Pi * h)
+
+Properties
+    Radius, Height
+    Diameter                            2 * r
+    BaseCircumference                   2 * Pi * r
+    BaseArea                            Pi * r2
+    LateralSurfaceArea                  2 * Pi * r * h
+    SurfaceArea                         2 * Pi * r * (r + h)
+    Volume                              Pi * r2 * h
+    Diagonal                            sqrt(4r2 + h2)
+    SlantHeight                         sqrt(r2 + h2)
+    InsphereRadius                      min(r, h/2)
+    CircumsphereRadius                  sqrt(r2 + (h/2)2)
+    Circumsphere                        Returns Sphere through all base-circle points
+    Base                                Returns Circle at the base
+    DiagonalToAxisAngleDegrees          atan(2r / h) in degrees
+
+---
+
+### Triangle
 
 Immutable class. Two construction modes: sides only, or vertex positions.
 
